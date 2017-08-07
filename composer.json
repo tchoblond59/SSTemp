@@ -1,6 +1,6 @@
 {
-    "name": "tchoblond59/sscompteur",
-    "description": "Power counter plugin for LaraHome",
+    "name": "tchoblond59/sstemp",
+    "description": "Temperature and humidity sensor plugin for LaraHome",
     "license": "GNU GPL",
     "authors": [
         {
