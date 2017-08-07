@@ -1,0 +1,19 @@
+{
+    "name": "tchoblond59/sscompteur",
+    "description": "Power counter plugin for LaraHome",
+    "license": "GNU GPL",
+    "authors": [
+        {
+            "name": "Julien Lamandin",
+            "email": "julien.lamandin@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Tchoblond59\\SSTemp\\": "src"
+        }
+    },
+    "require": {
+
+    }
+}
