@@ -35,7 +35,6 @@ class SSTempEventListener
             $type = 'temp';
             if($msmessage->getType()==1)
                 $type = 'hum';
-
             $sstemp_event = new SSTempEvent($sensor, $type, $msmessage->getMessage());
             event($sstemp_event);
         }
