@@ -20,7 +20,7 @@ class SSTempServiceProvider extends ServiceProvider
         //$this->loadRoutesFrom(__DIR__.'/routes.php');
         //$this->loadViewsFrom(__DIR__.'/views', 'sstemp');
         //$this->loadMigrationsFrom(__DIR__.'/migrations');
-        Event::listen('App\Events\MSMessageEvent', 'Tchoblond59\SSTemp\EventListener\SSRelayEventListener');
+        Event::listen('App\Events\MSMessageEvent', '\Tchoblond59\SSTemp\EventListener\SSTempEventListener');
     }
 
     /**

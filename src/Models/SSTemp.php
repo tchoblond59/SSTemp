@@ -27,7 +27,7 @@ class SSTemp extends Sensor
 
     public function getJs()
     {
-        return ['js/tchoblond59/sstemp/ssrelay.js'];
+        return ['js/tchoblond59/sstemp/sstemp.js'];
     }
 
 
