@@ -1,7 +1,6 @@
 {
     "name": "tchoblond59/sstemp",
     "description": "Temperature and humidity sensor plugin for LaraHome",
-    "license": "GNU GPL",
     "authors": [
         {
             "name": "Julien Lamandin",
@@ -15,5 +14,12 @@
     },
     "require": {
 
+    },
+    "extra": {
+	"laravel": {
+	    "providers": [
+		"Tchoblond59\\SSTemp\\SSTempServiceProvider"
+	    ]
+	}
     }
 }
