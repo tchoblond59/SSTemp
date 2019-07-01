@@ -1,8 +1,9 @@
 /****************SSTemp JS Plugin****************/
 $(function () {
+    console.log('sstemp');
     e.channel('SSTemp-channel')
-        .listen('.Tchoblond59.SSTemp.Events.SSTempEvent', function (e) {
-            console.log('SSTempEvent', e)
+        .listen('.Tchoblond59\\SSTemp\\Events\\SSTempEvent', function (e) {
+            console.log('SSTempEvent', e);
             if(e.type=="temp")
                 $('.card-figures .figures[data-sensorid='+e.sensor.id+']').animate({'opacity': 0}, 1000, function () {
                     $('.card-figures .figures[data-sensorid='+e.sensor.id+']').text(e.value+'°');
