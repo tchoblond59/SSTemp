@@ -18,10 +18,10 @@ class SSTemp extends Sensor
             ->orderBy('created_at', 'desc')->first();
         if($last_message==null)
         {
-            return view('sensors.sstemp.widget_empty')->with(['widget' => $widget,
+            return view('sstemp::widget_empty')->with(['widget' => $widget,
                 'last_message' => $last_message]);
         }
-        return view('sensors.sstemp.widget')->with(['widget' => $widget,
+        return view('sstemp::widget')->with(['widget' => $widget,
             'last_message' => $last_message]);
     }
 
