@@ -9,6 +9,19 @@
             <div class="col-md-12">
                 <h1>Gestion Sensor </h1>
                 <hr>
+            </div>
+            <div class="col-md-12">
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+            </div>
+            <div class="col-md-12">
                 <div class="d-flex justify-content-around flex-wrap">
                     <div>
                         <form action="{{ url("update/sstemp/$id") }}" method="POST">
