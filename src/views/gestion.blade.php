@@ -3,45 +3,37 @@
 @section('content')
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript" src="{{asset('js/tchoblond59/sstemp/sstemp.js')}}"></script>
-    <div class="container-fluid">
+    <div class="container">
         <div class="row">
 
             <div class="col-md-12">
                 <h1>Gestion Sensor </h1>
                 <hr>
-                <div class="row">
-                    <div class="col-sm">
+                <div class="d-flex justify-content-around flex-wrap">
+                    <div>
                         <form action="{{ url("update/sstemp/$id") }}" method="POST">
                             {{ csrf_field() }}
                             <div class="form-group">
-                                <div>
-                                    <label for="nom">Entrez le seuil de temperature : </label>
-                                </div>
-                                <input type="text" name="temp_lim" id="temp_lim" placeholder="{{$last_temp}}">
-
-                                <div>
-                                    <label for="nom">Adresse mail: </label>
-                                </div>
-                                <input type="email" name="mail" id="mail" placeholder="exemple@exemple.com">
-
-                                <div style="padding-top: 15px">
-                                    <input type="submit" value="Envoyer !">
-                                </div>
+                                <label for="temp_lim">Entrez le seuil de temperature : </label>
+                                <input class="form-control" type="text" name="temp_lim" id="temp_lim"
+                                       placeholder="{{$last_temp}}">
                             </div>
+                            <div class="form-group">
+                                <label for="mail">Adresse mail: </label>
+                                <input class="form-control" type="email" name="mail" id="mail"
+                                       placeholder="exemple@exemple.com">
+                            </div>
+                            <input class="btn btn-secondary float-right" type="submit" value="Envoyer !">
                         </form>
                     </div>
-                    <div class="col-sm">
+                    <div>
                         <label>Mail :</label>
                         @foreach($mails as $mail)
                             <form action="{{ url("delete/sstemp/mail/$mail->id") }}" method="POST">
                                 {{ csrf_field() }}
                                 <div class="form-group">
-
-
                                     <div style="margin-top: 15px"><input class="btn btn-danger" type="submit"
                                                                          value="-"> {{$mail->email}}</div>
-
-
                                 </div>
                             </form>
                         @endforeach
