@@ -12,15 +12,16 @@ class SSTempController extends Controller
 {
     public function index($id)
     {
-        $conf =SSTempConfig::where('sensor_id',$id)->get()->first();
-        $confmail=SSTempEmail::where('sstemp_config_id',$conf->id)->get();
+        $conf =SSTempConfig::where('sensor_id',$id)->first();
 
-        if($conf->exists()==false)
+        if(!$conf->exists())
         {
             $conf =new SSTempConfig();
             $conf->sensor_id = $id;
             $conf->save();
         }
+
+        $confmail=SSTempEmail::where('sstemp_config_id',$conf->id)->get();
 
         return view('sstemp::gestion')->with([
             'last_temp' => $conf->limit,
