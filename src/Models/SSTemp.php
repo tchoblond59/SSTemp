@@ -30,5 +30,8 @@ class SSTemp extends Sensor
         return ['js/tchoblond59/sstemp/sstemp.js'];
     }
 
-
+    public function config()
+    {
+        return $this->hasOne(SSTempConfig::class, 'sensor_id');
+    }
 }

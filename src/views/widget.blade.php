@@ -5,7 +5,7 @@
         <div class="card-icon card-blue"><i class="fa fa-4x fa-tint text-center"></i></div>
     @endif
     <div class="card-title text-center">
-        <a href="{{url('/widget/SSTemp/'.$widget->id)}}" class="btn btn-success">{{$widget->name}}</a>
+        <a href="{{url('/widget/SSTemp/'.$widget->sensor->id)}}" class="btn btn-success">{{$widget->name}}</a>
     </div>
     <div class="card-figures">
         @if($last_message->type==0)
