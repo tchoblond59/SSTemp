@@ -5,6 +5,7 @@ namespace Tchoblond59\SSTemp\Models;
 use App\Sensor;
 
 use App\Message;
+use Carbon\Carbon;
 use DB;
 
 class SSTemp extends Sensor
@@ -37,6 +38,19 @@ class SSTemp extends Sensor
         }
         else
             return null;
+    }
+
+    public function getTempStats()
+    {
+        $one_week_ago = Carbon::now()->subWeek();
+        $data = Message::select(DB::raw('avg(value) as temp_avg, DATE(created_at) as day, HOUR(created_at) as hour'))
+            ->where('node_address', '=', $this->node_address)
+            ->where('sensor_address', '=', $this->sensor_address)
+            ->where('command', '=', 1)
+            ->whereDate('created_at', '>=', $one_week_ago)
+            ->groupBy('day', 'hour')
+            ->get();
+        return $data;
     }
 
     public function getJs()

@@ -1,6 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript" src="{{asset('js/tchoblond59/sstemp/sstemp.js')}}"></script>
     <div class="container">
         <div class="row">
 
@@ -45,9 +47,19 @@
                         @endforeach
                     </div>
                 </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div id="sstemp_chart" style="height: 500px">
+
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
+    <script type="text/javascript">
+        var sstemp_data = {!! $data_chart !!}
+    </script>
 
 
 

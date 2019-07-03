@@ -5,6 +5,7 @@ namespace Tchoblond59\SSTemp\Controllers;
 use App\Command;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Tchoblond59\SSTemp\Models\SSTemp;
 use Tchoblond59\SSTemp\Models\SSTempConfig;
 use Tchoblond59\SSTemp\Models\SSTempEmail;
 
@@ -22,11 +23,19 @@ class SSTempController extends Controller
         }
 
         $confmail=SSTempEmail::where('sstemp_config_id',$conf->id)->get();
+        $sstemp = SSTemp::find($id);
+        $temp_stats = $sstemp->getTempStats();
+        $data_chart[]=['Date', 'Température'];
+        foreach ($temp_stats as $temp)
+        {
+            $data_chart[]=[$temp->day.' '.$temp->hour.'h', $temp->temp_avg];
+        }
 
         return view('sstemp::gestion')->with([
             'last_temp' => $conf->limit,
             'id'=>$id,
-            'mails'=>$confmail
+            'mails'=>$confmail,
+            'data_chart' => json_encode($data_chart)
 
         ]);
     }
