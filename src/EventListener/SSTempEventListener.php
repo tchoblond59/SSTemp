@@ -42,7 +42,7 @@ class SSTempEventListener
             $sstemp = SSTemp::find($sensor->id);
             if($sstemp->config)
             {
-
+                $sstemp->config->sendAlert();
             }
         }
     }
