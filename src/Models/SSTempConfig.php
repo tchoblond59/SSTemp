@@ -8,6 +8,8 @@ class SSTempConfig extends Model
 {
     public $table = 'sstemp_configs';
 
+    public $timestamps = false;
+
     public function ssTemp()
     {
         return $this->belongsTo(SSTemp::class, 'sensor_id');
