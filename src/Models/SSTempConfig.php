@@ -17,4 +17,15 @@ class SSTempConfig extends Model
     {
         return $this->hasMany(SSTempEmail::class, 'sstemp_config_id');
     }
+
+    public function sendAlert()
+    {
+        if($this->limit != null && $this->ssTemp->getLastTemperature() >= $this->limit)
+        {
+            foreach ($this->emails as $email)
+            {
+                $email->send();
+            }
+        }
+    }
 }

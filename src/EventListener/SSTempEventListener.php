@@ -7,6 +7,7 @@ use App\Events\MSMessageEvent;
 use Tchoblond59\SSTemp\Events\SSTempEvent;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Tchoblond59\SSTemp\Models\SSTemp;
 
 class SSTempEventListener
 {
@@ -37,6 +38,12 @@ class SSTempEventListener
                 $type = 'hum';
             $sstemp_event = new SSTempEvent($sensor, $type, $msmessage->getMessage());
             event($sstemp_event);
+
+            $sstemp = SSTemp::find($sensor->id);
+            if($sstemp->config)
+            {
+
+            }
         }
     }
 }

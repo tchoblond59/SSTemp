@@ -25,6 +25,20 @@ class SSTemp extends Sensor
             'last_message' => $last_message]);
     }
 
+    public function getLastTemperature()
+    {
+        $last_message = Message::where('node_address', '=', $this->node_address)
+            ->where('sensor_address', '=', $this->sensor_address)
+            ->where('command', '=', 1)
+            ->orderBy('created_at', 'desc')->first();
+        if($last_message != null)
+        {
+            return $last_message->value;
+        }
+        else
+            return null;
+    }
+
     public function getJs()
     {
         return ['js/tchoblond59/sstemp/sstemp.js'];
