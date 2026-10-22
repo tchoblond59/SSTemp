@@ -1,4 +1,7 @@
 <?php
+
+use Illuminate\Support\Facades\Route;
+
 /**
  * Created by PhpStorm.
  * User: ugo
@@ -7,8 +10,8 @@
  */
 
 Route::group(['middleware' => ['web','auth']], function () {
-    Route::get('/widget/SSTemp/{id}', 'Tchoblond59\SSTemp\Controllers\SSTempController@index');
-    Route::post('/update/sstemp/{id}', 'Tchoblond59\SSTemp\Controllers\SSTempController@update');
-    Route::post('/delete/sstemp/mail/{id}', 'Tchoblond59\SSTemp\Controllers\SSTempController@delete');
+    Route::get('/widget/SSTemp/{id}', [\Tchoblond59\SSTemp\Controllers\SSTempController::class, 'index']);
+    Route::post('/update/sstemp/{id}', [\Tchoblond59\SSTemp\Controllers\SSTempController::class, 'update']);
+    Route::post('/delete/sstemp/mail/{id}', [\Tchoblond59\SSTemp\Controllers\SSTempController::class, 'delete']);
 });
 

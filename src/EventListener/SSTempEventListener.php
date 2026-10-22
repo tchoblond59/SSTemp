@@ -29,7 +29,7 @@ class SSTempEventListener
      */
     public function handle(MSMessageEvent $event)
     {
-        $sensor = Sensor::where('node_address', '=', $event->message->getNodeId())->where('sensor_address', '=', $event->message->getChildId())->where('classname', '=', '\Tchoblond59\SSTemp\Models\SSTemp')->first();
+        $sensor = Sensor::where('node_address', '=', $event->message->getNodeId())->where('sensor_address', '=', $event->message->getChildId())->whereIn('classname', [SSTemp::class, '\\'.SSTemp::class])->first();
         $msmessage = $event->message;
         if($sensor && $msmessage->getCommand()==1 && ($msmessage->getType()==0 || $msmessage->getType()==1))
         {
@@ -40,7 +40,7 @@ class SSTempEventListener
             event($sstemp_event);
 
             $sstemp = SSTemp::find($sensor->id);
-            if($sstemp->config)
+            if($msmessage->getType() == 0 && $sstemp->config)
             {
                 $sstemp->config->sendAlert();
             }

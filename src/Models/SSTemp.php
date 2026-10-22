@@ -16,7 +16,8 @@ class SSTemp extends Sensor
         $last_message = Message::where('node_address', '=', $sensor->node_address)
             ->where('sensor_address', '=', $sensor->sensor_address)
             ->where('command', '=', 1)
-            ->orderBy('created_at', 'desc')->first();
+            ->where('type', 0)
+            ->orderBy('created_at', 'desc')->orderBy('id', 'desc')->first();
         if($last_message==null)
         {
             return view('sstemp::widget_empty')->with(['widget' => $widget,
@@ -31,7 +32,8 @@ class SSTemp extends Sensor
         $last_message = Message::where('node_address', '=', $this->node_address)
             ->where('sensor_address', '=', $this->sensor_address)
             ->where('command', '=', 1)
-            ->orderBy('created_at', 'desc')->first();
+            ->where('type', 0)
+            ->orderBy('created_at', 'desc')->orderBy('id', 'desc')->first();
         if($last_message != null)
         {
             return $last_message->value;
@@ -43,12 +45,16 @@ class SSTemp extends Sensor
     public function getTempStats()
     {
         $one_week_ago = Carbon::now()->subWeek();
-        $data = Message::select(DB::raw('avg(value) as temp_avg, DATE(created_at) as day, HOUR(created_at) as hour'))
+        $hour = $this->getConnection()->getDriverName() === 'sqlite'
+            ? "CAST(strftime('%H', created_at) AS INTEGER)"
+            : 'HOUR(created_at)';
+        $data = Message::select(DB::raw('avg(value) as temp_avg, DATE(created_at) as day, '.$hour.' as hour'))
             ->where('node_address', '=', $this->node_address)
             ->where('sensor_address', '=', $this->sensor_address)
             ->where('command', '=', 1)
+            ->where('type', 0)
             ->whereDate('created_at', '>=', $one_week_ago)
-            ->groupBy('day', 'hour')
+            ->groupBy('day', 'hour')->orderBy('day')->orderBy('hour')
             ->get();
         return $data;
     }

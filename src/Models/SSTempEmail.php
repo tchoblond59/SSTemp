@@ -19,8 +19,7 @@ class SSTempEmail extends Model
     {
         $temperature = $this->config->ssTemp->getLastTemperature();
         $time = Carbon::now()->format('d/m/Y à H:i');
-        $beautymail = app()->make(\Snowfire\Beautymail\Beautymail::class);
-        $beautymail->send('sstemp::emails.alert_temp', ['temperature' => $temperature, 'time' => $time], function ($message) {
+        \Illuminate\Support\Facades\Mail::send('sstemp::emails.alert_temp', ['temperature' => $temperature, 'time' => $time], function ($message) {
             $message
                 ->to($this->email)
                 ->subject('Alerte sonde température!');

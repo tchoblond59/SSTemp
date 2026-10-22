@@ -11,7 +11,7 @@ class SSTempConfig extends Model
 
     public $timestamps = false;
 
-    protected $dates = ['last_send'];
+    protected $casts = ['last_send' => 'datetime'];
 
     public function ssTemp()
     {
@@ -33,7 +33,7 @@ class SSTempConfig extends Model
             $duration = 99;
         }
         else
-            $duration = $now->diffInMinutes($last_send);
+            $duration = $last_send->diffInMinutes($now, false);
 
         if($this->limit != null && $this->ssTemp->getLastTemperature() >= $this->limit && $duration >=30)
         {

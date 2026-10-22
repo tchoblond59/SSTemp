@@ -13,15 +13,16 @@ class SSTempController extends Controller
 {
     public function index($id)
     {
+        SSTemp::findOrFail($id);
         $conf = SSTempConfig::where('sensor_id', $id)->first();
-        if(!$conf->exists())
+        if(!$conf)
         {
             $conf = new SSTempConfig();
             $conf->sensor_id = $id;
             $conf->save();
         }
         $confmail = SSTempEmail::where('sstemp_config_id', $conf->id)->get();
-        $sstemp = SSTemp::find($id);
+        $sstemp = SSTemp::findOrFail($id);
         $temp_stats = $sstemp->getTempStats();
         $data_chart[] = ['Date', 'Température'];
         foreach ($temp_stats as $temp)
@@ -39,9 +40,16 @@ class SSTempController extends Controller
     public function update($id, Request $request)
     {
         $this->validate($request, [
-            'temp_lim' => 'numeric',
-            'mail' => 'email',
+            'temp_lim' => 'nullable|numeric',
+            'mail' => 'nullable|email',
         ]);
+        SSTemp::findOrFail($id);
+        $conf = SSTempConfig::where('sensor_id', $id)->first();
+        if (!$conf) {
+            $conf = new SSTempConfig();
+            $conf->sensor_id = $id;
+            $conf->save();
+        }
         $limit = $request->temp_lim;
         $mail = $request->mail;
         if($limit !== null)
@@ -63,7 +71,7 @@ class SSTempController extends Controller
 
     public function delete($id)
     {
-        $mail = SSTempEmail::find($id);
+        $mail = SSTempEmail::findOrFail($id);
         $mail->delete();
         return redirect()->back();
     }
